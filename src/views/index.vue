@@ -128,6 +128,7 @@ export default {
         return this.currentDate === moment(bill.time).format('YYYY-MM') &&
                 (this.currentCategory === '0' || this.currentCategory === bill.category)
       })
+      res.sort((a, b) => a.time - b.time)
       return res
     },
     // 当月收入
