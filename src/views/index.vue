@@ -1,5 +1,21 @@
 <template>
   <div class="index">
+    <el-dialog title="支出统计" :visible.sync="dialogPayVisible" width="400px">
+      <el-table :data="currentPayStatistics" style="width:100%">
+      <el-table-column
+        :formatter="categoryFormatter"
+        align="center"
+        prop="category"
+        label="账单分类">
+      </el-table-column>
+      <el-table-column
+        :formatter="amountFormatter"
+        align="center"
+        prop="amount"
+        label="账单金额（元）">
+      </el-table-column>
+      </el-table>
+    </el-dialog>
     <el-dialog title="添加账单" :visible.sync="dialogFormVisible" width="400px">
       <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="账单类型：" prop="type">
@@ -44,8 +60,9 @@
       </el-select>
       <el-button @click="addBill" type="primary">添加账单</el-button>
       <el-button @click="exportBills" type="primary">导出账单</el-button>
-      <span>收入：{{currentIncome}}</span>
-      <span>支出：{{currentPay}}</span>
+      <el-button @click="()=>{ dialogPayVisible = true }" type="primary">支出统计</el-button>
+      <span>收入：{{currentIncome}}元</span>
+      <span>支出：{{currentPay}}元</span>
     </div>
     <el-table :data="currentBillList" style="width:100%">
       <el-table-column
@@ -70,7 +87,7 @@
         :formatter="amountFormatter"
         align="center"
         prop="amount"
-        label="账单金额">
+        label="账单金额（元）">
       </el-table-column>
     </el-table>
   </div>
@@ -95,6 +112,8 @@ export default {
       currentCategory: '0',
       // 添加账单表单是否可见
       dialogFormVisible: false,
+      // 支出统计是否可见
+      dialogPayVisible: false,
       // 添加账单表单
       form: {},
       // 表单校验
@@ -129,6 +148,23 @@ export default {
                 (this.currentCategory === '0' || this.currentCategory === bill.category)
       })
       res.sort((a, b) => a.time - b.time)
+      return res
+    },
+    // 当月支出统计
+    currentPayStatistics () {
+      const temp = {}
+      const res = []
+      this.currentBillList.forEach(bill => {
+        if (bill.type === 0) {
+          temp[bill.category] ? temp[bill.category] += bill.amount : temp[bill.category] = bill.amount
+        }
+      })
+      for (const key in temp) {
+        res.push({
+          category: key,
+          amount: temp[key]
+        })
+      }
       return res
     },
     // 当月收入
@@ -213,6 +249,9 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
+    span{
+      line-height: 40px;
+    }
   }
   .el-select,.el-input{
     width: 217px;
