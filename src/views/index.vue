@@ -12,7 +12,7 @@
         :formatter="amountFormatter"
         align="center"
         prop="amount"
-        label="账单金额（元）">
+        label="支出金额（元）">
       </el-table-column>
       </el-table>
     </el-dialog>
@@ -165,6 +165,7 @@ export default {
           amount: temp[key]
         })
       }
+      res.sort((a, b) => b.amount - a.amount)
       return res
     },
     // 当月收入

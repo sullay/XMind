@@ -1,24 +1,38 @@
-# 3d
+# XMind 前端面试大作业
 
-## Project setup
-```
-npm install
-```
+此程序主要使用的技术栈为 Vue、element-ui。
 
-### Compiles and hot-reloads for development
-```
-npm run dev
-```
+### 1.加载我们所提供的数据
 
-### Compiles and minifies for production
-```
-npm run build
-```
+使用csv-loader读取csv文件中的数据
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 2.以列表的形式展示账单内容，并且提供下拉框选择月份进行筛选，其中列表中所展示的账单为选择月份的账单；
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+使用表格展示账单中的内容，通过计算属性筛选出所选月份的账单列表，并根据时间进行排序
+
+### 3.支持使用者添加账单；
+
+通过表单新增账单，并提供校验
+
+### 4.简单地统计并展示所选月份的收入和支出总金额；
+
+通过计算属性计算出所选月份的收入和支出总金额。
+
+### 5.对账单分类进行二次筛选；
+
+账单内容的筛选条件中新增账单分类，默认为全部。
+
+### 6.对选择月份内的所有账单根据账单分类进行支出金额统计，并进行排序。
+
+通过计算属性统计出所选月份的支出账单，相同分类金额进行相加，并根据金额进行排序，最后通过表格展示。
+
+### 7.账单导出功能
+
+通过开源库xlsx将账单数据转化为csv文件，通过file-saver将生成的文件下载到本地。
+
+
+邮箱： 1181518458@qq.com
+
+手机号：18321318968
+
+微信号：yjw242537
